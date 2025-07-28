@@ -22,7 +22,6 @@ void sumMatrixOnHost(float *A, float *B, float *C, const int nx, const int ny){
 
 }
 
-// Step 2: To be continued ...
 
 int main(int argc, char **argv){
 
