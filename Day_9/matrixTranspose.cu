@@ -18,7 +18,7 @@ __global__ void matrixTranspose(const float *A, float *B, int nx, int ny){
     unsigned int iy = threadIdx.y + blockIdx.y * blockDim.y;
 
     if (ix< nx && iy<ny){
-        //step 3: Read the columns and write the rows. Effectively uses L1 Cache therfore improved cache hits as Read ops can be cached.
+        //step 3: Read the columns and write the rows. Effectively uses L1 Cache therefore improved cache hits as Read ops can be cached.
         B[iy*nx+ix] = A[ix*ny+iy];
     }
 }
