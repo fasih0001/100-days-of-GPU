@@ -34,45 +34,45 @@ int main(int argc, char **argv){
     printf("Device: %d:%s\n",dev,deviceProp.name);
     CHECK(cudaSetDevice(dev));
 
-    //step 9: initialize the matrix setup params.
+    //step 5: initialize the matrix setup params.
     const int nx=1<<3, ny=1<<3;
     float *h_A, *h_B;
     int nxy = nx*ny;
     int nByte = nxy*sizeof(float);
 
-    //step 10: allocate memory on the host.
+    //step 6: allocate memory on the host.
     h_A = (float*)malloc(nByte);
     h_B = (float*)malloc(nByte);
 
-    //step 11: populate the matrix.
+    //step 7: populate the matrix.
     for (int i = 0; i < nx; i++) {
         for (int j = 0; j < ny; j++) {
             h_A[i * ny + j] = static_cast<float>(rand()) / RAND_MAX;
         }
     }
 
-    //step 12: Allocate the device memory.
+    //step 8: Allocate the device memory.
     float *d_A, *d_B;
     CHECK(cudaMalloc((void **)&d_A, nByte));
     CHECK(cudaMalloc((void **)&d_B,nByte));
 
-    //step 13: copy data from host to device.
+    //step 9: copy data from host to device.
     CHECK(cudaMemcpy(d_A,h_A, nByte, cudaMemcpyHostToDevice));
 
-    //step 14: setup the kernel parms.
+    //step 10: setup the kernel parms.
     int dimx = 16;
     int dimy = 16;
     dim3 block(dimx,dimy);
     dim3 grid((nx+block.x-1)/block.x);
 
-    //step 15: launch the kernel.
+    //step 11: launch the kernel.
     matrixTranspose<<<grid, block>>>(d_A,d_B,nx,ny);
     cudaDeviceSynchronize();
 
-    //step 16: copy the results back the host.
+    //step 12: copy the results back the host.
     CHECK(cudaMemcpy(h_B,d_B, nByte, cudaMemcpyDeviceToHost));
 
-    //step 17: Print results
+    //step 13: Print results
     printf("\nA:\n");
     for (int i = 0; i < nx; i++) {
         for (int j = 0; j < ny; j++) {
@@ -89,7 +89,7 @@ int main(int argc, char **argv){
         printf("\n");
     }
 
-    //step 18: Free memory
+    //step 14: Free memory
     cudaFree(d_A);
     cudaFree(d_B);
     free(h_A);
