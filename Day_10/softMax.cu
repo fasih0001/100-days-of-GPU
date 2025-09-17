@@ -13,7 +13,7 @@
 }   \
 
 __global__ void softMax(const float *__restrict__ A, float *__restrict__ B, int nx, int ny){
-    //step3: global indexing for rows, so we compute softmax for each row of the matrix.
+    //step3 : global indexing for rows, so we compute softmax for each row of the matrix.
     //resulting matrix B is the (ny,1)
     //To get rid of confusion:
     // Row index   iy=0   iy=1   iy=2   iy=3 -> column index
