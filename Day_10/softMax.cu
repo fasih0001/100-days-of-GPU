@@ -19,9 +19,9 @@ __global__ void softMax(const float *__restrict__ A, float *__restrict__ B, int 
     // Row index   iy=0   iy=1   iy=2   iy=3 -> column index
     //  |
     //  V
-    // ix=0         [                    ]  
-    // ix=1         [                    ]  
-    // ix=2         [                    ]  
+    // ix=0        [                    ]  
+    // ix=1        [                    ]  
+    // ix=2        [                    ]  
 
     unsigned int ix = threadIdx.x + blockIdx.x * blockDim.x;
     if (ix<nx){
